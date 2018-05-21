@@ -32,6 +32,8 @@ public class GamePage extends AppCompatActivity {
     //Image
 
     private ImageView penguinImage;
+
+    private ImageView timejumper;
     //private ImageView penguinImage2;
 
     //Position
@@ -113,6 +115,10 @@ public class GamePage extends AppCompatActivity {
 
                 endGame();
 
+                //Makes image invisible
+                timejumper = findViewById(R.id.timeJumper);
+                timejumper.setImageResource(R.drawable.timejumper);
+                timejumper.setVisibility(View.INVISIBLE);
 
                 if (PinguLibrary.getNumOfPingus() == 0){
                     //if all pingus are dead, then toast message
@@ -158,6 +164,10 @@ public class GamePage extends AppCompatActivity {
 
                 endGame();
 
+                //Makes image invisible
+                timejumper = findViewById(R.id.timeJumper);
+                timejumper.setImageResource(R.drawable.timejumper);
+                timejumper.setVisibility(View.INVISIBLE);
 
                 // food is used to make an egg. Zero food = no new pingus
                 if (PinguLibrary.getFood() == 0){
@@ -190,11 +200,14 @@ public class GamePage extends AppCompatActivity {
 
                 endGame();
 
+
+                //Determines if counter is greater than day
                 if (PinguLibrary.getDay() <= counter){
                     PinguLibrary.setDay(PinguLibrary.getDay()+5);
                     String daySetText = "Day: " + PinguLibrary.getDay();
                     dayCount.setText(daySetText);
 
+                    //Randomly decides bonus from time jump based on previous values
                     if (PinguLibrary.getFood() % 2 == 0){
                         PinguLibrary.setFood(PinguLibrary.getFood() + rand.nextInt(10));
                     }
@@ -209,9 +222,15 @@ public class GamePage extends AppCompatActivity {
                         PinguLibrary.setNumOfPingus(PinguLibrary.getNumOfPingus() - rand.nextInt(3));
                         //numOfPingusTextView.setText("Pingus " + PinguLibrary.getNumOfPingus());
                     }
+                    //Image applier
+                    timejumper = findViewById(R.id.timeJumper);
+                    timejumper.setImageResource(R.drawable.timejumper);
+                    timejumper.setVisibility(View.VISIBLE);
+
+                    //Text Updater
                     numOfPingusTextView.setText("Pingus " + PinguLibrary.getNumOfPingus());
-                    String foodLoss = "Food: " + PinguLibrary.getFood();
-                    foodTextView.setText(foodLoss);
+                    String foodAction = "Food: " + PinguLibrary.getFood();
+                    foodTextView.setText(foodAction);
                 }
             }
         });
